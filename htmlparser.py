@@ -26,7 +26,7 @@ def writeData():
         messageinfo = lastauthor + messageinfo
     line = ""
     for value in messageinfo:
-        line += '\"' + value + '\"' + ','
+        line += "\'" + value + "\'" + ','
     line = line[:-1]
     line = line.replace("\n\n", "\n")
     line += "\n"
@@ -56,6 +56,7 @@ class MultiColliderSuperParser(HTMLParser): # fucking hell
             if ('class', 'chatlog__reactions') in attrs:
                 isReaction = True
                 nestedDivCount += 1
+                attachmentCount = 0
             elif ('class', 'chatlog__attachment') in attrs:
                 attachmentCount = 2 # Yes.
             elif ('class', 'chatlog__message') in attrs or ('class', 'chatlog__messages') in attrs: # two different things you see
@@ -65,6 +66,9 @@ class MultiColliderSuperParser(HTMLParser): # fucking hell
             if ('class', 'emoji emoji--small') in attrs and isReaction:
                 messageinfo[5] += attrs[2][1]
                 nestedDivCount += 1
+        elif tag == "a":
+            if attachmentCount > 0:
+                messageinfo[4] += attrs[0][1] + ", "
 
 
 
@@ -96,19 +100,18 @@ class MultiColliderSuperParser(HTMLParser): # fucking hell
             messageinfo[2] = data
             isTimestamp = False
         if isMessage: # ditto
+            data = data.replace("\'", '\"')
             messageinfo[3] += data
         if isReaction: # ditto
             data = data.replace("\n", "")
             data = data.replace(" ", "")
             if data != "":
                 messageinfo[5] += "(" + data + "), "
-        if attachmentCount > 0: # i just noticed that i probably don't need the two booleans but whatever
-            messageinfo[4] += data + ", "
 
 for filename in os.listdir(logdir):
     chatlog = open(logdir + "/" + filename, "r", encoding="utf8")
     result = open(resultdir + "/" + filename.strip("html") + "csv", "w", encoding="utf8")
     parser = MultiColliderSuperParser()
-    parser.feed(chatlog.read)
+    parser.feed(chatlog.read())
     chatlog.close()
     result.close()
