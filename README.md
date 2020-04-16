@@ -7,3 +7,5 @@ Put input / output directories at the top of parser.py and hope your computer do
 
 # CSV to Plaintext
 Coming soon
+
+* Code is extremely awful i made this in one sitting for a private use ok
