@@ -9,6 +9,6 @@ That thing should be able to render CSV properly on its own but due to a technic
 Put input / output directories at the top of htmlparser.py and hope your computer doesn't die/
 
 # CSV to Plaintext
-Coming soon
+Same as above, should be less painful on your computer.
 
 * Code is extremely awful I made this in one sitting for a private use ok.

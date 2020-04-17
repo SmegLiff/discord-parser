@@ -91,6 +91,8 @@ class MultiColliderSuperParser(HTMLParser): # fucking hell
                 messageinfo[5] = messageinfo[5][:-2]
         if tag == "div" and attachmentCount > 0:
             attachmentCount -= 1
+            if attachmentCount == 0:
+                messageinfo[4] = messageinfo[4][:-2]
 
 
     def handle_data(self, data):
