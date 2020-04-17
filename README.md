@@ -10,5 +10,6 @@ Put input / output directories at the top of htmlparser.py and hope your compute
 
 # CSV to Plaintext
 Same as above, should be less painful on your computer.
+Change `combineMessages` from `True` to `False` to disable merging multiple messages from the same author with the same timestamp
 
 * Code is extremely awful I made this in one sitting for a private use ok.

@@ -2,6 +2,7 @@
 
 logdir = ""
 resultdir = ""
+combineMessages = True # Merges messages from the same author with the same timestamp
 
 ####### CODE SPAGHETTI BELOW THIS LINE DON'T EVEN BOTHER TO LOOK ######
 
@@ -14,7 +15,7 @@ def CSVCroncher():
     for item in textlist:
         # item = "\'" + item + "\'"
         chatinfo = item.split("\',\'")
-        if  ("[" + chatinfo[2] + "]\n") != header:
+        if  ("[" + chatinfo[2] + "]\n") != header or not combineMessages:
             header = "\n[" + chatinfo[2] + "] " + chatinfo[1] + "\n"
             result.write(header)
         result.write(chatinfo[3] + "\n")
